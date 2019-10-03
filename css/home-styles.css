@@ -1,0 +1,16 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.new-item-icon {
+    margin-left: 10px;
+}
+
+.login-btn{
+    margin-left: 100px;
+}
+
+.signup-btn{
+    margin-left: 10px;
+}
