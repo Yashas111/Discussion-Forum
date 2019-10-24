@@ -12,5 +12,13 @@
 }
 
 .signup-btn{
-    margin-left: 10px;
+    margin-left: 20px;
+}
+
+.account-btn{
+    margin-right:200px
+}
+
+.logout-btn{
+    margin-right:50px
 }
