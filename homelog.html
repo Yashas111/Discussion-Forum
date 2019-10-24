@@ -26,6 +26,14 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="./homelog.hmtl">Home <span class="sr-only">(current)</span></a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/account.html">Account</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="/post.html">New Post</a>
+                </li>
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,6 +52,8 @@
                         </a>
                     </div>
                 </li>
+
+                
                 
             </ul>
             <form class="form-inline my-2 my-lg-0">
@@ -62,7 +72,70 @@
     </nav>
     <!-- navbar end -->
 
-    
+    <!-- posts section -->
+    <div class="container">
+        <h1 class="center">Posts</h1>
+        <!-- all posts -->
+        <section class="row justify-content-md-center ">
+            <div class="col-md-8 shadow p-3 mb-5 bg-white rounded">
+                <h3>Title</h3>
+                <p>Description</p>
+                <div class = "row">
+                    <div class="col-md-1">
+                        <button class="btn">
+                            <i class="fa fa-arrow-up text-primary"><span>100</span></i>
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn">
+                            <i class="fa fa-arrow-down text-danger"><span>50</span></i>
+                        </button>
+                    </div>
+                    <div class="col-md-10">
+                        <form>
+                            <div class="form-group row">
+                                <div class="col-sm-11">
+                                    <input type="text" class="form-control" placeholder="Comment">
+                                </div>
+                                <button class="btn btn-outline-primary">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 shadow p-3 mb-5 bg-white rounded">
+                <h3>Title</h3>
+                <p>Description</p>
+                <div class = "row">
+                    <div class="col-md-1">
+                        <button class="btn">
+                            <i class="fa fa-arrow-up text-primary"><span>100</span></i>
+                        </button>
+                    </div>
+                    <div class="col-md-1">
+                        <button class="btn">
+                            <i class="fa fa-arrow-down text-danger"><span>50</span></i>
+                        </button>
+                    </div>
+                    <div class="col-md-10">
+                        <form>
+                            <div class="form-group row">
+                                <div class="col-sm-11">
+                                    <input type="text" class="form-control" placeholder="Comment">
+                                </div>
+                                <button class="btn btn-outline-primary">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <script src = "./js/jquery.js" ></script>
     <script src="./js/popper.js" ></script>
