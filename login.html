@@ -1,24 +1,117 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<link href="./login.css" rel="stylesheet" id="bootstrap-css">
-<div class="container login-container">
-            <div class="row centered-form">
-                <div class="col-md-5 login-form-1">
-                    <h3>Login for NITTE forum</h3>
-                    <form role="form" method="POST" action="login.php">
-                        <div class="form-group">
-                            <input type="text" name="email" class="form-control" placeholder="Your Email *" value="" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script> if(localStorage.getItem("user")) window.location.href = "home.php"; </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./bootstrap-4.3.1-dist/css/bootstrap.css">
+    <link href="./css/login.css" rel="stylesheet" id="bootstrap-css">
+
+    <title>Login</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container">
+            <a class="navbar-brand" href="#">NITTE forum</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="./home.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Education</a>
+                            <a class="dropdown-item" href="#">Sports</a>
+                            <a class="dropdown-item" href="#">Politics</a>
+                            <a class="dropdown-item" href="#">Games</a>
+                            <a class="dropdown-item" href="#">Books</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">
+                                Create New
+                                <i class="fa fa-plus new-item-icon" aria-hidden="true"></i>
+                            </a>
                         </div>
-                        <div class="form-group">
-                            <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" class="btnSubmit" value="Login" onclick="login.php" />
-                        </div>
-                        </div>
-                    </form>
-                </div>
-        
+                    </li>  
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </form>
+                <a href="./login.html" class="btn btn-primary login-btn" onclick="login.html">
+                    Log in
+                </a>
+                <a href="./signup.html" class="btn btn-outline-primary signup-btn" onclick="signup.html">
+                    Sign Up
+                </a>
             </div>
+        </div>
+    </nav>
+    <!-- navbar end -->
+
+    <div class="content container col-lg-5 col-md-6">
+        <div class="card shadow p-10 mb-5 bg-white rounded">
+            <h1 class="text-center">Login!</h1>
+            <form id = "login-form" method="POST" action="login.php">
+                <div class="form-row">
+                    <input class="form-control form-control-lg" id = "emailid" type="email" name="email" placeholder="Email" required />
+                    <input class="form-control form-control-lg" id = "passwordid" type="password" name="password" placeholder="Password" required />
+                    <div class="invalid-feedback text-center">
+                        
+                    </div>
+                    <button class="btn btn-primary my-login-btn">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src = "./js/jquery.js"></script>
+    <script src="./js/popper.js"></script>
+    <script src="./bootstrap-4.3.1-dist/js/bootstrap.js"></script>
+    <script src="./js/axios.min.js"></script>
+
+    <script>
+        const encodeForm = (data) => {
+            return Object.keys(data)
+                .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+                .join('&');
+        }
+
+        document.getElementById("login-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            let emailInput = document.getElementById("emailid");
+            let passwordInput = document.getElementById("passwordid");
+
+            let data = {
+                email: emailInput.value,
+                password: passwordInput.value
+            };
+
+            axios.post("login.php", encodeForm(data), {headers: {'Accept': 'application/json'}})
+                .then((res) => {
+                    if(res.data == "Done") {
+                        window.location.href = "home.php";
+                        localStorage.setItem("user", emailInput.value);
+                    } else {
+                        emailInput.classList.add("is-invalid");
+                        passwordInput.classList.add("is-invalid");
+                        document.getElementsByClassName("invalid-feedback")[0].innerHTML = res.data;
+                    }
+                });
+        });
+    </script>
+
+</body>
+</html>

@@ -7,4 +7,4 @@ create table users(
     password varchar(10) not null
 );
 
-select * from users;
+-- select * from users;
