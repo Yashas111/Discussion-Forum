@@ -1,0 +1,65 @@
+.new-item-icon {
+    margin-left: 10px;
+}
+
+.login-btn{
+    margin-left: 100px;
+}
+
+.signup-btn{
+    margin-left: 20px;
+}
+
+.account-btn{
+    margin-right:200px
+}
+
+.content{
+    margin-top: 150px;
+}
+
+.card{
+    padding: 20px;
+}
+
+.content input{
+    width: 50%;
+    margin: 0 auto;
+    height: 50px;
+    margin-top: 3%;
+}
+
+.card .btn{
+    margin: 0 auto;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.my-login-btn {
+    border-radius: 50px;
+    width: 150px;
+}
+
+.content input{
+    width: 90%;
+}
+
+@media (min-width: 768px){
+
+}
+
+@media (max-width: 768px){
+    .content input{
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 450px){
+    .content input{
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}
