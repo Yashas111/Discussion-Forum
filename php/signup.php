@@ -1,5 +1,6 @@
 <?php
-    $conn = mysqli_connect('localhost','KnightShade','dragon391','dforum');
+    include("./db.php");
+    
     $email=$_POST['email'];
     $uname=$_POST['name'];
     $pass=$_POST['password'];
