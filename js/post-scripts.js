@@ -1,6 +1,5 @@
 let loggedInLinks = document.getElementsByClassName("show-when-logged-in");
 let loggedOutLinks = document.getElementsByClassName("show-when-logged-out");
-let postsDiv = document.querySelectorAll(".individual-post");
 
 let user = localStorage.getItem("user");
 
@@ -22,10 +21,4 @@ if(user) {
 
 document.querySelector("#logout-btn").addEventListener("click", (e) => {
     localStorage.removeItem("user");
-});
-
-Array.from(postsDiv).forEach((postDiv) => {
-    postDiv.addEventListener("click", (e) => {
-        window.location.href = "post.html";
-    });
 });
