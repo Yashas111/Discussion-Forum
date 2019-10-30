@@ -27,6 +27,7 @@ document.querySelector("#logout-btn").addEventListener("click", (e) => {
 
 // load all forums
 axios.get("../php/get-all-forums.php").then(res => {
+    console.log(res.data);
     let forums = res.data;
     let forum_contents = ``;
     forums.forEach(forum => {
@@ -52,12 +53,12 @@ axios.get("../php/get-all-forums.php").then(res => {
                             <div class="col-sm-12 col-md-4 vote-btns-container">
                                 <a class="vote-btn">
                                     <i class="fa fa-arrow-up text-primary">
-                                        <span style="margin-left: 3px;" id = "upvote-text">100</span>
+                                        <span style="margin-left: 3px;" id = "upvote-text">${ forum.uv_count }</span>
                                     </i>
                                 </a>
                                 <a class="vote-btn">
                                     <i class="fa fa-arrow-down text-danger">
-                                        <span style="margin-left: 3px;" id = "downvotevote-text">50</span>
+                                        <span style="margin-left: 3px;" id = "downvotevote-text">${ forum.dv_count }</span>
                                     </i>
                                 </a>
                             </div> 
@@ -73,7 +74,7 @@ axios.get("../php/get-all-forums.php").then(res => {
         forum_title.addEventListener("click", (e) => {
             let id = e.target.getElementsByClassName("post-id")[0].textContent;
             console.log(id);
-            // window.location.href = "post.html";
+            window.location.href = "post.html?id=" + id;
         });
     });
 });
