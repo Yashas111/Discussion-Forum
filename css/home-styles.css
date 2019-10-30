@@ -41,7 +41,7 @@
     text-align: justify;
 }
 
-.individual-post:hover {
+.post-title:hover {
     cursor: pointer;
 }
 
@@ -73,7 +73,7 @@
     .vote-btns-container {
         text-align: center;
     }
-    #post-title {
+    h3.post-title {
         font-size: 25px;
     }
 }
