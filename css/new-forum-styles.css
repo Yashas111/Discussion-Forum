@@ -1,0 +1,68 @@
+.new-item-icon {
+    margin-left: 10px;
+}
+
+.login-btn{
+    margin-left: 100px;
+}
+
+.signup-btn{
+    margin-left: 20px;
+}
+
+.account-btn{
+    margin-right:200px
+}
+
+.content{
+    margin-top: 100px;
+}
+
+.card{
+    padding: 20px;
+}
+
+#descriptionid {
+    margin-top: 10px;
+}
+
+.card .btn{
+    margin: 0 auto;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+.post-btn {
+    border-radius: 50px;
+    width: 150px;
+}
+
+.content input{
+    width: 90%;
+}
+
+
+@media (min-width: 768px){
+
+}
+
+@media (max-width: 768px){
+    .content input{
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 450px){
+    .content input{
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    
+    #descriptionid, #categoryid {
+        width: 90%;
+        margin: 10px auto 0 auto;
+    }
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../bootstrap-4.3.1-dist/css/bootstrap.css">
+    <link href="../css/new-forum-styles.css" rel="stylesheet" id="bootstrap-css">
+
+    <title>New Forum</title>
+</head>
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light pb-3" style="background-color: #e3f2fd;">
+        <div class="container">
+            <a class="navbar-brand" href="#">NITTE forum</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="./home.html">Home</a>
+                    </li>
+                    <li class="nav-item show-when-logged-in">
+                        <a class="nav-link" href="./account.html">Account</a>
+                    </li>
+                    <li class="nav-item show-when-logged-in">
+                        <a class="nav-link" href="./new-forum.html">New Forum</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Education</a>
+                            <a class="dropdown-item" href="#">Sports</a>
+                            <a class="dropdown-item" href="#">Politics</a>
+                            <a class="dropdown-item" href="#">Games</a>
+                            <a class="dropdown-item" href="#">Books</a>
+                            <div class="dropdown-divider show-when-logged-in"></div>
+                            <a class="dropdown-item show-when-logged-in" href="#">
+                                Create New
+                                <i class="fa fa-plus new-item-icon" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </li>  
+                </ul>
+                <a href="./home.html" id = "logout-btn" class="btn btn-primary logout-btn show-when-logged-in" style = "margin-left: 50px; margin-right: 0;">
+                    Log out
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- navbar end -->
+
+    <div class="content container col-lg-8 col-md-6">
+        <div class="card shadow p-10 mb-5 bg-white rounded">
+            <h1 class="text-center">New Forum</h1>
+            <form id = "new-forum-form" method="POST" action="login.php">
+                <div class="form-row">
+                    <div class="col-lg-6 col-sm-6">
+                        <input class="form-control" id = "titleid" type="text" name="title" placeholder="Title" required />
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <select class="form-control" id="categoryid" required>
+                            <option>Education</option>
+                            <option>Sports</option>
+                            <option>Politics</option>
+                            <option>Games</option>
+                            <option>Books</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <textarea class="form-control" id="descriptionid" placeholder="Description" name = "description" rows="5" required></textarea>
+                    </div>
+                    <div class="invalid-feedback text-center">
+                        
+                    </div>
+                    <button class="btn btn-primary post-btn">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src = "../js/jquery.js"></script>
+    <script src="../js/popper.js"></script>
+    <script src="../bootstrap-4.3.1-dist/js/bootstrap.js"></script>
+    <script src="../js/axios.min.js"></script>
+
+    <script>
+        const encodeForm = (data) => {
+            return Object.keys(data)
+                .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+                .join('&');
+        }
+
+        document.getElementById("new-forum-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            let title = document.getElementById("titleid").value;
+            let category = document.getElementById("categoryid").value;
+            let description = document.getElementById("descriptionid").value;
+
+            let [email, uname] = localStorage.getItem("user").split("|");
+            let dateStamp = Date(Date.now()).toString().split(" ");
+            let date = dateStamp[1] + " " + dateStamp[2] + ", " + dateStamp[3];
+            
+            let data = { title, category, description, email, uname, date };
+
+            axios.post("../php/new-forum.php", encodeForm(data), {headers: {'Accept': 'application/json'}})
+                .then((res) => {
+                    if(res.data == 200) {
+                        window.location.href = "home.html";
+                    }
+                })
+        });
+    </script>
+
+</body>
+</html>
