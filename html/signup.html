@@ -88,8 +88,8 @@
 
         document.getElementById("signup-form").addEventListener("submit", (e) => {
             e.preventDefault();
-			let name = document.getElementById("nameid").value;
-            let email = document.getElementById("emailid").value;
+			let nameInput = document.getElementById("nameid");
+            let emailInput = document.getElementById("emailid");
             let passwordInput = document.getElementById("passwordid");
 			let confirmPasswordInput = document.getElementById("confirmpasswordid");
 
@@ -99,15 +99,24 @@
 				document.getElementsByClassName("invalid-feedback")[0].innerHTML = "Passwords do not match!";
 			} else {
 				let data = {
-					name, email,
+                    name: nameInput.value, 
+                    email: emailInput.value,
 					password: passwordInput.value
 				};
 
 				axios.post("../php/signup.php", encodeForm(data), {headers: {'Accept': 'application/json'}})
 					.then((res) => {
-						console.log(res.data);
-						window.location.href = "home.html";
-						localStorage.setItem("user", email);
+                        console.log(res.data);
+                        if(res.data == 201) {
+                            nameInput.classList.add("is-invalid");
+                            emailInput.classList.add("is-invalid");
+                            document.getElementsByClassName("invalid-feedback")[0].innerHTML = "Name or Email already exists!";
+                        } else if(res.data == 200) {
+                            window.location.href = "home.html";
+                            localStorage.setItem("user", emailInput.value + "|" + nameInput.value);
+                        } else {
+                            document.getElementsByClassName("invalid-feedback")[0].innerHTML = "Error occurred! Please try again...";
+                        }
 					});
 			}
 

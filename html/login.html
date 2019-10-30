@@ -96,13 +96,15 @@
 
             axios.post("../php/login.php", encodeForm(data), {headers: {'Accept': 'application/json'}})
                 .then((res) => {
-                    if(res.data == "Done") {
+                    let [code, msg] = res.data.split("|");
+                    console.log(res.data);
+                    if(code == "200") {
                         window.location.href = "./home.html";
-                        localStorage.setItem("user", emailInput.value);
+                        localStorage.setItem("user", emailInput.value + "|" + msg);
                     } else {
                         emailInput.classList.add("is-invalid");
                         passwordInput.classList.add("is-invalid");
-                        document.getElementsByClassName("invalid-feedback")[0].innerHTML = res.data;
+                        document.getElementsByClassName("invalid-feedback")[0].innerHTML = msg;
                     }
                 });
         });
