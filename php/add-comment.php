@@ -1,14 +1,13 @@
 <?php
     include("./db.php");
     
-    $title = $_POST["title"];
-    $category = $_POST["category"];
-    $description = $_POST["description"];
+    $forumId = $_POST["forumId"];
+    $text = $_POST["comment_text"];
     $email = $_POST["email"];
     $uname = $_POST["uname"];
     $date = $_POST["date"];
 
-    $q = "INSERT INTO forum(title, category, description, email, uname, date) VALUES('$title', '$category', '$description', '$email', '$uname', '$date')";
+    $q = "INSERT INTO comment(text, email, uname, date, forumid) VALUES('$text', '$email', '$uname', '$date', $forumId)";
 
     mysqli_query($conn, $q);
 

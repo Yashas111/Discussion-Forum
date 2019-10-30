@@ -1,3 +1,9 @@
+const encodeForm = (data) => {
+    return Object.keys(data)
+        .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+        .join('&');
+}
+
 let loggedInLinks = document.getElementsByClassName("show-when-logged-in");
 let loggedOutLinks = document.getElementsByClassName("show-when-logged-out");
 
@@ -48,8 +54,54 @@ let comment_form = document.getElementById("comment-form");
 let comment_input = document.getElementById("commentid");
 comment_form.addEventListener("submit", (e) => {
     e.preventDefault();
-    console.log(comment_input.value);
-    if(comment_input.value !== "") {
-        
+    
+    if(user) {
+        let forumId = idQuery.split("=")[1];
+        let comment_text = comment_input.value;
+        let [email, uname] = user.split("|");
+        let dateStamp = Date(Date.now()).toString().split(" ");
+        let date = dateStamp[1] + " " + dateStamp[2] + ", " + dateStamp[3];
+
+        let data = { forumId, comment_text, email, uname, date };
+
+        axios.post("../php/add-comment.php", encodeForm(data), {headers: {'Accept': 'application/json'}})
+            .then((res) => {
+                if(res.data == 200) {
+                    window.location.href = window.location.href;
+                }
+            })
+    } else {
+        alert("You need to login to comment!");
     }
+});
+
+let comment_container = document.getElementById("comment-container");
+axios.get("../php/comment.php?" + idQuery).then(res => {
+    console.log(res.data);
+    let comments = res.data;
+    let comment_contents = "";
+    comments.forEach(comment => {
+        comment_contents += `
+            <div class="row justify-content-center bg-light comment-container">
+                <div class="col-12">
+                    <p id = "comment-text">
+                        ${ comment.text }
+                        <span class = "comment-id" style = "display: none;">${ comment.id }</span>
+                    </p>
+                </div>
+                <div class="col-12 pl-3 pt-2 pb-2">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <p class="text-black-50">
+                                <span class="posted-pre-text">Posted by </span>
+                                <span id = "commented-user">${ comment.uname }</span> on
+                                <span id = "commented-date-time">${ comment.date }</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    comment_container.innerHTML = comment_contents;
 });
