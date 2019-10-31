@@ -1,9 +1,17 @@
 <?php
     include("./db.php");
-    
-    $category = $_GET["category"];
 
-    $q = "Select *, (select count(*) from vote where vote.forumid = forum.id and type = 1) as uv_count, (select count(*) from vote where vote.forumid = forum.id and type = 0) as dv_count from forum where category = '$category'";
+    $q = "select * from forum";
+
+    if(array_key_exists("category", $_GET)) {
+        $category = $_GET["category"];
+        $q = $q . " where category = '$category'";
+    } else {
+        $searchArray = explode("+", $_GET["value"]);
+        $searchVal = implode(" ", $searchArray);
+        $q = $q . " where lower(title) like '%" . $searchVal . "%'";
+    }
+
     $rows = mysqli_query($conn, $q);
     $response = $rows->fetch_all(MYSQLI_ASSOC);
     

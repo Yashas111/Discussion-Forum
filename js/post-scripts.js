@@ -46,8 +46,8 @@ axios.get("../php/post.php?" + idQuery).then(res => {
     forum_category.innerHTML = res.data.category;
     forum_author.innerHTML = res.data.uname;
     forum_date.innerHTML = res.data.date;
-    forum_upvote_text.innerHTML = res.data.uv_count;
-    forum_downvote_text.innerHTML = res.data.dv_count;
+    forum_upvote_text.innerHTML = res.data.upvote_count;
+    forum_downvote_text.innerHTML = res.data.downvote_count;
 });
 
 let comment_form = document.getElementById("comment-form");

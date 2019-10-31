@@ -7,7 +7,7 @@
     $uname = $_POST["uname"];
     $date = $_POST["date"];
 
-    $q = "INSERT INTO comment(text, email, uname, date, forumid) VALUES('$text', '$email', '$uname', '$date', $forumId)";
+    $q = "INSERT INTO comment(text, email, uname, date, forumid, upvote_count, downvote_count) VALUES('$text', '$email', '$uname', '$date', $forumId, 0, 0)";
 
     mysqli_query($conn, $q);
 
