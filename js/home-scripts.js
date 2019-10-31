@@ -1,7 +1,5 @@
 let loggedInLinks = document.getElementsByClassName("show-when-logged-in");
 let loggedOutLinks = document.getElementsByClassName("show-when-logged-out");
-let forum_titles;
-let forum_container = document.querySelector("#forum-container");
 
 let user = localStorage.getItem("user");
 
@@ -25,8 +23,21 @@ document.querySelector("#logout-btn").addEventListener("click", (e) => {
     localStorage.removeItem("user");
 });
 
+let category = window.location.href.split("=")[1];
+let phpUrl = "../php/get-all-forums.php";
+if(category === "education")
+    phpUrl = "../php/get-forums.php?category=Education";
+else if(category === "sports")
+    phpUrl = "../php/get-forums.php?category=Sports";
+else if(category === "politics")
+    phpUrl = "../php/get-forums.php?category=Politics";
+else if(category === "games")
+    phpUrl = "../php/get-forums.php?category=Games";
+else if(category === "books")
+    phpUrl = "../php/get-forums.php?category=Books";
+
 // load all forums
-axios.get("../php/get-all-forums.php").then(res => {
+axios.get(phpUrl).then(res => {
     console.log(res.data);
     let forums = res.data;
     let forum_contents = ``;
@@ -68,8 +79,9 @@ axios.get("../php/get-all-forums.php").then(res => {
             </div>
         `;
     });
+    let forum_container = document.querySelector("#forum-container");
     forum_container.innerHTML = forum_contents;
-    forum_titles = document.querySelectorAll(".post-title");
+    let forum_titles = document.querySelectorAll(".post-title");
     Array.from(forum_titles).forEach((forum_title) => {
         forum_title.addEventListener("click", (e) => {
             let id = e.target.getElementsByClassName("post-id")[0].textContent;
