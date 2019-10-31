@@ -1,7 +1,7 @@
 <?php
     include("./db.php");
     
-    $q = "Select * from forum";
+    $q = "select * from forum order by id desc";
     $rows = mysqli_query($conn, $q);
     $response = $rows->fetch_all(MYSQLI_ASSOC);
     

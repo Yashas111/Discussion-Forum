@@ -11,6 +11,7 @@
         $searchVal = implode(" ", $searchArray);
         $q = $q . " where lower(title) like '%" . $searchVal . "%'";
     }
+    $q = $q . " order by id desc";
 
     $rows = mysqli_query($conn, $q);
     $response = $rows->fetch_all(MYSQLI_ASSOC);

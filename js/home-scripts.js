@@ -74,14 +74,16 @@ axios.get(phpUrl).then(res => {
                                 </p>
                             </div>
                             <div class="col-sm-12 col-md-4 vote-btns-container">
-                                <a class="vote-btn">
+                                <a class="vote-btn upvote-btn">
                                     <i class="fa fa-arrow-up text-primary">
-                                        <span style="margin-left: 3px;" id = "upvote-text">${ forum.upvote_count }</span>
+                                        <span style="margin-left: 3px;" class = "upvote-text">${ forum.upvote_count }</span>
+                                        <span class = "post-id" style = "display: none;">${ forum.id }</span>
                                     </i>
                                 </a>
-                                <a class="vote-btn">
+                                <a class="vote-btn downvote-btn">
                                     <i class="fa fa-arrow-down text-danger">
-                                        <span style="margin-left: 3px;" id = "downvotevote-text">${ forum.downvote_count }</span>
+                                        <span style="margin-left: 3px;" class = "downvote-text">${ forum.downvote_count }</span>
+                                        <span class = "post-id" style = "display: none;">${ forum.id }</span>
                                     </i>
                                 </a>
                             </div> 
@@ -91,6 +93,7 @@ axios.get(phpUrl).then(res => {
             </div>
         `;
     });
+    
     let forum_container = document.querySelector("#forum-container");
     forum_container.innerHTML = forum_contents;
     let forum_titles = document.querySelectorAll(".post-title");
@@ -99,6 +102,36 @@ axios.get(phpUrl).then(res => {
             let id = e.target.getElementsByClassName("post-id")[0].textContent;
             console.log(id);
             window.location.href = "post.html?id=" + id;
+        });
+    });
+
+    let upvote_btns = document.getElementsByClassName("upvote-btn");
+    Array.from(upvote_btns).forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            let upvote_text = e.target.querySelector(".upvote-text");
+            let forumId = e.target.querySelector(".post-id").textContent;
+            console.log(upvote_text.textContent, forumId);
+            axios.get("../php/update-forum-vote.php?forumid=" + forumId + "&votetype=upvote_count")
+                .then(res => {
+                    if(res.data == 200) {
+                        upvote_text.innerHTML = Number(upvote_text.textContent) + 1;
+                    }
+                });
+        });
+    });
+
+    let downvote_btns = document.getElementsByClassName("downvote-btn");
+    Array.from(downvote_btns).forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            let downvote_text = e.target.querySelector(".downvote-text");
+            let forumId = e.target.querySelector(".post-id").textContent;
+            console.log(downvote_text.textContent, forumId);
+            axios.get("../php/update-forum-vote.php?forumid=" + forumId + "&votetype=downvote_count")
+                .then(res => {
+                    if(res.data == 200) {
+                        downvote_text.innerHTML = Number(downvote_text.textContent) + 1;
+                    }
+                });
         });
     });
 });
